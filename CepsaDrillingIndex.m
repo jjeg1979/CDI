@@ -63,37 +63,31 @@ cdi.UserData.variables.DensityUnits = 'SG';
 cdi.UserData.variables.ReservoirAge_popup = { 'Tertiary or Later', 'Cretaceous', ...
     'Jurassic', 'Triassic', 'Pre-Triassic' };
 cdi.UserData.variables.CountryLandList = { 'Yemen', 'Saudia Arabia', ...
-    'Egypt', 'Algeria', 'Tunisia', 'Colombia', 'Ecuador', 'Trinidad', ...
-    'Indonesia', 'Papua New Guinea', 'Australia', 'New Zealand', 'Oman', ...
-    'Qatar', 'Syria', 'Iran', 'Azerbaijan', 'Russia', 'Kazakhstan', ...
-    'Sakhalin Island', 'Gabon', 'Angola', 'Mozambique', 'Ethiopia', ...
-    'Austria', 'Italy', 'Albania', 'Romania', 'Pakistan', 'India', ...
-    'Libya', 'Niger', 'Nigeria', 'Sudan', 'Uganda', 'Netherlands', ...
-    'Germany', 'France', 'UK', 'Thailand', 'Bangladesh', 'China', ...
-    'Bolivia', 'Brazil', 'Argentina' };
+        'Egypt', 'Algeria', 'Tunisia', 'Colombia', 'Ecuador', 'Trinidad', ...
+        'Indonesia', 'Papua New Guinea', 'Australia', 'New Zealand', 'Oman', ...
+        'Qatar', 'Syria', 'Iran', 'Azerbaijan', 'Russia', 'Kazakhstan', ...
+        'Sakhalin Island', 'Gabon', 'Angola', 'Mozambique', 'Ethiopia', ...
+        'Austria', 'Italy', 'Albania', 'Romania', 'Pakistan', 'India', ...
+        'Libya', 'Niger', 'Nigeria', 'Sudan', 'Uganda', 'Netherlands', ...
+        'Germany', 'France', 'UK', 'Thailand', 'Bangladesh', 'China', ...
+        'Bolivia', 'Brazil', 'Argentina' };
 cdi.UserData.variables.CountryOffshoreList = { 'UK', 'Ireland', 'Faroes', ...
-    'Nigeria', 'Mauritania', 'Ivory Coast', 'Benin', 'Ghana', 'Guinea-Bissau', ...
-    'Malaysia', 'Brunei', 'India', 'Vietnam', 'Myanmar', 'Cambodia', 'Bangladesh', ...
-    'Indonesia', 'Phillipines', 'Papua New Guinea', 'Angola', 'South Africa', ...
-    'Mozambique', 'Namibia', 'Kenya', 'Norway' , 'Australia', 'New Zealand', 'China', ...
-    'Sakhalin Island' , 'Iran', 'Qatar', 'Azerbaijan', 'Bahrain', 'Turkmenistan', 'UAE', ...
-    'Pakistan', 'US GOM Deep', 'Egypt', 'Palestine', 'Trinidad', 'Venezuela', 'Colombia', ...
-    'Cameroon', 'Gabon', 'Equatorial Guinea', 'Netherlands', 'Congo Brazzaville', ...
-    'Congo Kinshasa', 'Brazil', 'Argentina', 'Croatia', 'Libya', 'Italy', 'Tunisia', ...
-    'Spain', 'Denmark', 'Canada', 'Greenland' };
-
+        'Nigeria', 'Mauritania', 'Ivory Coast', 'Benin', 'Ghana', 'Guinea-Bissau', ...
+        'Malaysia', 'Brunei', 'India', 'Vietnam', 'Myanmar', 'Cambodia', 'Bangladesh', ...
+        'Indonesia', 'Phillipines', 'Papua New Guinea', 'Angola', 'South Africa', ...
+        'Mozambique', 'Namibia', 'Kenya', 'Norway' , 'Australia', 'New Zealand', 'China', ...
+        'Sakhalin Island' , 'Iran', 'Qatar', 'Azerbaijan', 'Bahrain', 'Turkmenistan', 'UAE', ...
+        'Pakistan', 'US GOM Deep', 'Egypt', 'Palestine', 'Trinidad', 'Venezuela', 'Colombia', ...
+        'Cameroon', 'Gabon', 'Equatorial Guinea', 'Netherlands', 'Congo Brazzaville', ...
+        'Congo Kinshasa', 'Brazil', 'Argentina', 'Croatia', 'Libya', 'Italy', 'Tunisia', ...
+        'Spain', 'Denmark', 'Canada', 'Greenland' };
+onshore_maximum_angle_popup = { '<5', '5-24', '25-44', '45-64', '65-84', '85-89', '90-170' };    
+onshore_bit_size_popup = { '<7', '7-9', '>9' };
+onshore_number_of_casings_popup = { 1, 2, 3, 4, '>5' };
 % Variables to handle several operations
 country_popup = sort( cdi.UserData.variables.CountryLandList );
-offshore_maximum_angle_popup = { '<5', '5-24', '25-42', '43-64', '65-84', '85-94', '95-170' };
-onshore_maximum_angle_popup = { '<5', '5-24', '25-44', '45-64', '65-84', '85-89', '90-170' };
-offshore_bit_size_popup = { '<7', '7-9', '9-12', '>12' };
-onshore_bit_size_popup = { '<7', '7-9', '>9' };
-offshore_number_of_casings_popup = { 1, 2, 3, 4, 5, '>=6' };
-onshore_number_of_casings_popup = { 1, 2, 3, 4, '>5' };
 welltype = 'Onshore';
-%factor_functions = { countryFactor, WDFactor, DIFactor, maximumAngleFactor, ...
-%    HSFactor, FinalBitSizeFactor, NumberofCasingFactor, MaximumMWFactor, ...
-%    HPFacor, ReservoirAgeFactor, BatchFactor };
+
 % Internal Variables
 cdi.UserData.variables.SurfaceElevation = 0;
 cdi.UserData.variables.SpudDepth = 0;
@@ -617,7 +611,7 @@ cdi.UserData.batch_or_campaign = uicontrol( 'Parent', cdi.UserData.lower_upper_p
                                             'FontSize', 12, ...
                                             'Position', [ hzsep 1-13/13 0.5 1/13 ], ...
                                             'BackgroundColor', [ 1 1 1 ] ); 
-cdi.UserData.batch_or_campign_popup = uicontrol( 'Parent', cdi.UserData.lower_upper_pannel, ...
+cdi.UserData.batch_or_campaign_popup = uicontrol( 'Parent', cdi.UserData.lower_upper_pannel, ...
                                             'Style', 'popup', ...
                                             'String', { 'No', 'Yes' }, ...
                                             'HorizontalAlignment', 'left', ...
@@ -625,7 +619,7 @@ cdi.UserData.batch_or_campign_popup = uicontrol( 'Parent', cdi.UserData.lower_up
                                             'FontSize', 12, ...
                                             'Position', [ 0.3 1-12.75*1/13 0.1 1/13 ], ...
                                             'BackgroundColor', [ 1 1 1 ], ...
-                                            'Callback', @batchOrCampaignChanged );
+                                            'Callback', @batchOrCampaignChangedCallback );
 cdi.UserData.factor11 = uicontrol( 'Parent', cdi.UserData.lower_upper_pannel, ...
                                   'Style', 'text', ...
                                   'String', [ 'F11: ' cdi.UserData.variables.factor11 ], ...
@@ -635,105 +629,83 @@ cdi.UserData.factor11 = uicontrol( 'Parent', cdi.UserData.lower_upper_pannel, ..
                                   'Position', [ 0.6 1-12.75*1/13 0.5 1/13 ], ...
                                   'BackgroundColor', [ 1 1 1 ], ...
                                   'Visible', 'off');
+%% Lower panel
+% First printout of labels
+CDIFactors = [];
+CEDDFactors = [];
+switch ( welltype )
+    case 'Onshore'
+        Factors = [ 1 3 4 6 7 8 9 10 11 ];
+    case 'Offshore'
+        Factors = [ 1 2 3 4 5 6 7 8 9 10 11 ];
+end
+for i = 1 : size( Factors, 2 )
+    CDIFactors = strcat( CDIFactors, sprintf( 'F%d', Factors( i ) ), '+' );
+    CEDDFactors = strcat( CEDDFactors, sprintf( 'F%d', Factors( i ) ), '+' );
+end
+% Remore last '+'
+CDIFactors = strcat( 'CDI=(', CDIFactors( 1 : end - 1 ), ')' );
+CEDDFactors = strcat( 'CEDD=exp(', CEDDFactors( 1 : end - 1 ), ')' );
+
+cdi.UserData.CDIText = uicontrol ( 'Parent', cdi.UserData.lower_pannel, ...
+                                   'Style', 'text', ...
+                                   'String', CDIFactors, ...
+                                   'HorizontalAlignment', 'center', ...
+                                   'Units', 'normalized', ...
+                                   'FontSize', 12, ...
+                                   'Position', [ hzsep 0.6 0.8 0.2 ], ...
+                                   'BackgroundColor', [ 1 1 1 ] );
+cdi.UserData.CEDDText = uicontrol ( 'Parent', cdi.UserData.lower_pannel, ...
+                                   'Style', 'text', ...
+                                   'String', CEDDFactors, ...
+                                   'HorizontalAlignment', 'center', ...
+                                   'Units', 'normalized', ...
+                                   'FontSize', 12, ...
+                                   'Position', [ hzsep 0.2 0.8 0.2 ], ...
+                                   'BackgroundColor', [ 1 1 1 ] );
 
 
+                               
 %% Getting the underlying Java editbox for input validation
 
 cdi.UserData.jsurface_elevation_value = findjobj( cdi.UserData.surface_elevation_value );   % Get Java properties
 set( cdi.UserData.jsurface_elevation_value, 'KeyPressedCallback', @validateNumericData );   % Set validation function
-set( cdi.UserData.jsurface_elevation_value, 'FocusLostCallback', { @surfaceElevationUpdate } ); % Set FocusLost
+set( cdi.UserData.jsurface_elevation_value, 'FocusLostCallback', @surfaceElevationUpdateLostFocus ); % Set FocusLost
 
 cdi.UserData.jspud_depth_value = findjobj( cdi.UserData.spud_depth_value );
 set( cdi.UserData.jspud_depth_value, 'KeyPressedCallback', @validateNumericData );
-set( cdi.UserData.jspud_depth_value, 'FocusLostCallback', { @spudDepthUpdate } ); % Set FocusLost
+set( cdi.UserData.jspud_depth_value, 'FocusLostCallback', @spudDepthUpdateLostFocus ); % Set FocusLost
 
 cdi.UserData.jMTD_value = findjobj( cdi.UserData.MTD_value );
 set( cdi.UserData.jMTD_value, 'KeyPressedCallback', @validateNumericData );
-set( cdi.UserData.jMTD_value, 'FocusLostCallback', { @MTDUpdate } ); % Set FocusLost
+set( cdi.UserData.jMTD_value, 'FocusLostCallback', @MTDUpdateLostFocus ); % Set FocusLost
 
 cdi.UserData.jlength_HS_value = findjobj( cdi.UserData.length_HS_value );
 set( cdi.UserData.jlength_HS_value, 'KeyPressedCallback', @validateNumericData );
-set( cdi.UserData.jlength_HS_value, 'FocusLostCallback', { @HSUpdate } ); % Set FocusLost
+set( cdi.UserData.jlength_HS_value, 'FocusLostCallback', @HSUpdateLostFocus ); % Set FocusLost
 
 cdi.UserData.jmaximum_MW_value = findjobj( cdi.UserData.maximum_MW_value );
 set( cdi.UserData.jmaximum_MW_value, 'KeyPressedCallback', @validateNumericData );
-set( cdi.UserData.jmaximum_MW_value, 'FocusLostCallback', { @MWUpdate } ); % Set FocusLost
+set( cdi.UserData.jmaximum_MW_value, 'FocusLostCallback', @MWUpdateLostFocus ); % Set FocusLost
 
-                                        
+updateFactors( cdi, welltype );                                        
 %% Callback functions
     function welltypeselection( ~, callbackdata )
         if ( strcmp( callbackdata.NewValue.String, 'Offshore Well' ) )
             welltype = 'Offshore';
-            country_popup = sort( cdi.UserData.variables.CountryOffshoreList );
             cdi.UserData.variables.Offshore = 1;
             cdi.UserData.variables.Onshore = 0;
-            % Populate pop-ups and update variables' values
-            % Maximum Angle
-            set( cdi.UserData.maximum_angle_popup, 'String', offshore_maximum_angle_popup );
-            cdi.UserData.variables.Angle = get( cdi.UserData.maximum_angle_popup, 'Value' );
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.factor4 = maximumAngleFactor( cdi.UserData.variables.Angle, welltype, 'CDI' );
-            updateFactorOnScreen( 4, cdi.UserData.variables.factor4 );
-            % Bit Size
-            set ( cdi.UserData.bit_size_popup, 'String', offshore_bit_size_popup );
-            cdi.UserData.variables.BitSize = get( cdi.UserData.bit_size_popup, 'Value' );
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.factor6 = FinalBitSizeFactor( cdi.UserData.variables.BitSize, welltype, 'CDI' );
-            updateFactorOnScreen( 6, cdi.UserData.variables.factor6 );
-            % Number of Casings
-            set( cdi.UserData.number_of_casings_popup, 'String', offshore_number_of_casings_popup );
-            cdi.UserData.variables.NumberOfCasings = get( cdi.UserData.number_of_casings_popup, 'Value' );
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.factor7 = NumberofCasingFactor( cdi.UserData.variables.NumberOfCasings, welltype, 'CDI' );
-            updateFactorOnScreen( 7, cdi.UserData.variables.factor7 );
-            %Batch or Campaign Drilling
-            
-            % Update country list
-            set( cdi.UserData.country_popup, 'String', country_popup );
-            cdi.UserData.variables.Country = country_popup{ get( cdi.UserData.country_popup, 'Value' ) };
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.factor1 = countryFactor( cdi.UserData.variables.Country, welltype, 'CDI' );
-            updateFactorOnScreen( 1, cdi.UserData.variables.factor1 );
-            % Update labels
-            updateLabels();
         else
             cdi.UserData.variables.Offshore = 0;
             cdi.UserData.variables.Onshore = 1;
-            welltype = 'Onshore';
-            country_popup = sort( cdi.UserData.variables.CountryLandList );
-            % Populate pop-ups and update variables' values
-            % Maximum Angle
-            set( cdi.UserData.maximum_angle_popup, 'String', onshore_maximum_angle_popup );
-            cdi.UserData.variables.Angle = get( cdi.UserData.maximum_angle_popup, 'Value' ) - 1;
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.factor4 = maximumAngleFactor( cdi.UserData.variables.Angle, welltype, 'CDI' );
-            updateFactorOnScreen( 4, cdi.UserData.variables.factor4 );
-            % Bit Size
-            set ( cdi.UserData.bit_size_popup, 'String', onshore_bit_size_popup );
-            cdi.UserData.variables.BitSize = get( cdi.UserData.bit_size_popup, 'Value' );
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.factor6 = FinalBitSizeFactor( cdi.UserData.variables.BitSize, welltype, 'CDI' );
-            updateFactorOnScreen( 6, cdi.UserData.variables.factor6 );
-            % Number of Casings
-            set( cdi.UserData.number_of_casings_popup, 'String', onshore_number_of_casings_popup );
-            cdi.UserData.variables.NumberOfCasings = get( cdi.UserData.number_of_casings_popup, 'Value' );
-             % Calculate factor and update on the screen
-            cdi.UserData.variables.factor7 = NumberofCasingFactor( cdi.UserData.variables.NumberOfCasings, welltype, 'CDI' );
-            updateFactorOnScreen( 7, cdi.UserData.variables.factor7 );
-            % Reservoir Age
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.ReservoirAge = get( cdi.UserData.reservoir_age_popup, 'Value' );
-            cdi.UserData.variables.factor10 = ReservoirAgeFactor( cdi.UserData.variables.ReservoirAge, welltype, 'CDI' );
-            updateFactorOnScreen( 10, cdi.UserData.variables.factor10 );   
-            % Batch or Campaign Drilling
-            % Update country list
-            set( cdi.UserData.country_popup, 'String', country_popup );
-            cdi.UserData.variables.Country = country_popup{ get( cdi.UserData.country_popup, 'Value' ) };
-            % Calculate factor and update on the screen
-            cdi.UserData.variables.factor1 = countryFactor( cdi.UserData.variables.Country, welltype, 'CDI' );
-            updateFactorOnScreen( 1, cdi.UserData.variables.factor1 );
+            welltype = 'Onshore';            
+        end 
+            % Update popups
+            updatePopups( cdi, welltype );
+            % Update factors            
+            updateFactors( cdi, welltype );
+            % Update labels
             updateLabels();
-        end        
     end
 
     function lengthselection( source, ~ )
@@ -795,12 +767,6 @@ set( cdi.UserData.jmaximum_MW_value, 'FocusLostCallback', { @MWUpdate } ); % Set
 
     end
 
-    function countryChangedCallBack( source, ~ )
-        cdi.UserData.variables.Country = source.String{ source.Value };
-        cdi.UserData.variables.factor1 = countryFactor( cdi.UserData.variables.Country, welltype, 'CDI' );
-        updateFactorOnScreen( 1, cdi.UserData.variables.factor1 );
-    end
-
     % Data validation for edit boxes
     function validateNumericData( source, eventData )
         keyChar = eventData.getKeyChar;     
@@ -811,114 +777,45 @@ set( cdi.UserData.jmaximum_MW_value, 'FocusLostCallback', { @MWUpdate } ); % Set
         end        
     end
     
-    function surfaceElevationUpdate( source, ~ )
-        if ~isempty( source.getText ) && ( source.getText ~= ' ' )
-            cdi.UserData.variables.SurfaceElevation = str2double( source.getText );
-            if ( strcmp( welltype, 'Offshore' ) )
-                cdi.UserData.variables.factor2 = WDFactor( cdi.UserData.variables.SurfaceElevation, 'CDI' );
-                updateFactorOnScreen( 2, cdi.UserData.variables.factor2 );
-            end
-            % Update drilled interval (if needed)
-            updateDrilledInterval();
+    % Functions to trick Matlab callbacks
+    function countryChangedCallBack( ~, ~ )
+        countryChanged( cdi, [], welltype );
+    end
+    function surfaceElevationUpdateLostFocus( ~, ~ )
+        surfaceElevationUpdate( cdi, [], welltype );
+    end
+    function spudDepthUpdateLostFocus( ~, ~ )
+        spudDepthUpdate( cdi, [], welltype );
+    end
+    function MTDUpdateLostFocus( ~, ~ )
+        MTDUpdate( cdi, [], welltype );
+    end
+    function maximumAngleChangedCallback( ~, ~ )
+        maximumAngleChanged( cdi, [], welltype );
+    end
+    function HSUpdateLostFocus( ~, ~ )
+        switch ( welltype )
+            case 'Offshore'
+                HSUpdate( cdi );
         end
     end
-
-    function spudDepthUpdate( source, ~ )
-        if ~isempty( source.getText ) && ( source.getText ~= ' ' )
-            cdi.UserData.variables.SpudDepth = str2double( source.getText );         
-            % Update drilled interval (if needed)
-            updateDrilledInterval();
-        end
+    function bitSizeChangedCallback( ~, ~ )
+        bitSizeChanged( cdi, [], welltype );
     end
-
-    function MTDUpdate( source, ~ )
-        if ~isempty( source.getText ) && ( source.getText ~= ' ' )
-            cdi.UserData.variables.MTD = str2double( source.getText );
-        end
-        % Update drilled interval (if needed )
-        updateDrilledInterval();
+    function numberOfCasingsChangedCallback( ~, ~ )
+        numberOfCasingsChanged( cdi, [], welltype );
     end
-
-    function HSUpdate( source, ~ )
-        if ~isempty( source.getText ) && ( source.getText ~= ' ' )
-            cdi.UserData.variables.HorSection = str2double( source.getText );
-            if ( cdi.UserData.variables.HorSection == 0 )
-                cdi.UserData.variables.HorSection = 1;
-            elseif ( cdi.UserData.variables.HorSection < 500 )
-                cdi.UserData.variables.HorSection = 2;
-            elseif ( cdi.UserData.variables.HorSection < 1000 )
-                cdi.UserData.variables.HorSection = 3;
-            elseif ( cdi.UserData.variables.HorSection < 2000 )
-                cdi.UserData.variables.HorSection = 4;
-            else
-                cdi.UserData.variables.HorSection = 5;
-            end
-                
-            cdi.UserData.variables.factor5 = HSFactor( cdi.UserData.variables.HorSection, 'CDI' );
-            updateFactorOnScreen( 5, cdi.UserData.variables.factor5 );
-        end
+    function MWUpdateLostFocus( ~, ~ )
+        MWUpdate( cdi, [], welltype );
     end
-
-    function MWUpdate( source, ~ )
-        if ~isempty( source.getText ) && ( source.getText ~= ' ' )
-            cdi.UserData.variables.MudWeight = str2double( source.getText );
-            cdi.UserData.variables.factor8 = MaximumMWFactor( cdi.UserData.variables.MudWeight, welltype, 'CDI' );
-            updateFactorOnScreen( 8, cdi.UserData.variables.factor8 );
-        end        
+    function HPChangedCallback( ~, ~ )
+        HPChanged( cdi, [], welltype );
     end
-
-    function maximumAngleChangedCallback( source, ~ )
-        if (  cdi.UserData.variables.Offshore ) 
-            cdi.UserData.variables.Angle =  source.Value;
-            cdi.UserData.variables.factor4 = maximumAngleFactor( cdi.UserData.variables.Angle, welltype, 'CDI' );
-            updateFactorOnScreen( 4, cdi.UserData.variables.factor4 );
-        else
-            cdi.UserData.variables.Angle = source.Value - 1;
-            cdi.UserData.variables.factor4 = maximumAngleFactor( cdi.UserData.variables.Angle, welltype, 'CDI' );
-            updateFactorOnScreen( 4, cdi.UserData.variables.factor4 );
-        end        
+    function reservoirAgeChangedCallback ( ~, ~ )
+        reservoirAgeChanged( cdi, [], welltype );
     end
-
-    function bitSizeChangedCallback( source, ~ )
-        cdi.UserData.variables.BitSize = source.Value;
-        cdi.UserData.variables.factor6 = FinalBitSizeFactor( cdi.UserData.variables.BitSize, welltype, 'CDI' );
-        updateFactorOnScreen( 6, cdi.UserData.variables.factor6 );
-    end
-
-    function numberOfCasingsChangedCallback( source, ~ )
-        cdi.UserData.variables.NumberOfCasings = source.Value;
-        cdi.UserData.variables.factor7 = NumberofCasingFactor( cdi.UserData.variables.NumberOfCasings, welltype, 'CDI' );
-        updateFactorOnScreen( 7, cdi.UserData.variables.factor7 );
-    end
-
-    function HPChangedCallback( source, ~ )
-        cdi.UserData.variables.HPWell = source.String{ source.Value };
-        switch ( cdi.UserData.variables.HPWell )
-            case 'No'
-                cdi.UserData.variables.HPWell = 0;
-            case 'Yes'
-                cdi.UserData.variables.HPWell = 1;
-        end
-        cdi.UserData.variables.factor9 = HPFactor( cdi.UserData.variables.HPWell, welltype, 'CDI' );
-        updateFactorOnScreen( 9, cdi.UserData.variables.factor9 );
-    end
-
-    function reservoirAgeChangedCallback( source, ~ )
-        cdi.UserData.variables.ReservoirAge = source.String{ source.Value };
-        cdi.UserData.variables.factor10 = ReservoirAgeFactor( cdi.UserData.variables.ReservoirAge, welltype, 'CDI' );
-        updateFactorOnScreen( 10, cdi.UserData.variables.factor10 );
-    end
-
-    function batchOrCampaignChanged( source, ~ )
-        cdi.UserData.variables.BatchOrCampaign = source.String { source.Value };
-        switch ( cdi.UserData.variables.BatchOrCampaign )
-            case 'No'
-                cdi.UserData.variables.BatchOrCampaign = 0;
-            case 'Yes'
-                cdi.UserData.variables.BatchOrCampaign = 1;
-        end
-        cdi.UserData.variables.factor11 = BatchFactor( cdi.UserData.variables.BatchOrCampaign, welltype, 'CDI' );
-        updateFactorOnScreen( 11, cdi.UserData.variables.factor11 );
+    function batchOrCampaignChangedCallback( ~, ~ )
+        batchOrCampaignChanged( cdi, [], welltype );
     end
 
 %% Auxiliary functions
@@ -945,27 +842,7 @@ set( cdi.UserData.jmaximum_MW_value, 'FocusLostCallback', { @MWUpdate } ); % Set
         keyVal = double( keyChar );
         flag = ~isempty( keyVal ) && keyVal > 31 && keyVal < 128;
     end
-
-    % Function to update Drilled Interval (called by surfaceElevationUpdate and spudDepthUpdate)
-    function updateDrilledInterval()
-        
-        if ( ~isempty( cdi.UserData.jsurface_elevation_value.getText ) && ...
-                ~isempty( cdi.UserData.jspud_depth_value.getText ) && ...
-                ~isempty( cdi.UserData.jMTD_value.getText ) )
-            cdi.UserData.variables.DrilledInterval = str2double( cdi.UserData.jMTD_value.getText ) - ...
-                str2double( cdi.UserData.jspud_depth_value.getText );
-            
-            % Display new value
-            if ( isnan( cdi.UserData.variables.DrilledInterval ) )
-                set( cdi.UserData.DI_value, 'String', ' ' );
-            else
-                set( cdi.UserData.DI_value, 'String', num2str( cdi.UserData.variables.DrilledInterval ) );
-                cdi.UserData.variables.factor3 = DIFactor( cdi.UserData.variables.DrilledInterval, welltype, 'CDI' );
-                updateFactorOnScreen( 3, cdi.UserData.variables.factor3 );
-            end
-        end
-    end
-    
+   
     % This function updates labels depending on the unit selected
     function updateUnitsLabel()
         set( cdi.UserData.surface_elevation_unit, 'String', cdi.UserData.variables.LengthUnits );
@@ -974,16 +851,5 @@ set( cdi.UserData.jmaximum_MW_value, 'FocusLostCallback', { @MWUpdate } ); % Set
         set( cdi.UserData.DI_unit, 'String', cdi.UserData.variables.LengthUnits );
         set( cdi.UserData.length_HS_unit, 'String', cdi.UserData.variables.LengthUnits );
         set( cdi.UserData.maximum_MW_unit, 'String', cdi.UserData.variables.DensityUnits );
-    end 
-
-    function updateFactorOnScreen( factorNum, value )
-        % Updates the factor on the screen given the number of the factor
-        % Get the handle to the panel that holds the value dynamically
-        textBox = eval( sprintf( 'cdi.UserData.factor%d', factorNum ) );
-        % Set String property
-        set( textBox, 'String', sprintf( 'F%d: %.3f', factorNum, value ) );
-        % Make it visible
-        set( textBox, 'Visible', 'on' );
     end
-
 end

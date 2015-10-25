@@ -3,7 +3,7 @@ function f = ReservoirAgeFactor( ReservoirAge, welltype, index )
     beta_offshore = 0.0658291587382301;
     
     switch ( ReservoirAge )
-        case 'Tertiary of later'
+        case 'Tertiary or Later'
             b = 1;
         case 'Cretaceous'
             b = 2;
