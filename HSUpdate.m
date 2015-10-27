@@ -1,4 +1,4 @@
-function HSUpdate( cdi, ~ )
+function HSUpdate( cdi, ~, index )
     source = cdi.UserData.jlength_HS_value;
     if ~isempty( source.getText )
         cdi.UserData.variables.HorSection = str2double( source.getText );
@@ -14,7 +14,7 @@ function HSUpdate( cdi, ~ )
             cdi.UserData.variables.HorSection = 5;
         end
 
-        cdi.UserData.variables.factor5 = HSFactor( cdi.UserData.variables.HorSection, 'CDI' );
+        cdi.UserData.variables.factor5 = HSFactor( cdi.UserData.variables.HorSection, index );
         updateFactorOnScreen( 5, cdi );
     end
 end

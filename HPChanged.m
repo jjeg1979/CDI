@@ -1,4 +1,4 @@
-function HPChanged( cdi, ~, welltype )
+function HPChanged( cdi, ~, welltype, index )
     source = cdi.UserData.high_pressure_popup;
     cdi.UserData.variables.HPWell = source.String{ source.Value };
     switch ( cdi.UserData.variables.HPWell )
@@ -7,6 +7,6 @@ function HPChanged( cdi, ~, welltype )
         case 'Yes'
             cdi.UserData.variables.HPWell = 1;
     end
-    cdi.UserData.variables.factor9 = HPFactor( cdi.UserData.variables.HPWell, welltype, 'CDI' );
+    cdi.UserData.variables.factor9 = HPFactor( cdi.UserData.variables.HPWell, welltype, index );
     updateFactorOnScreen( 9, cdi );
 end

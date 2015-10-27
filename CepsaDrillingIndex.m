@@ -87,6 +87,7 @@ onshore_number_of_casings_popup = { 1, 2, 3, 4, '>5' };
 % Variables to handle several operations
 country_popup = sort( cdi.UserData.variables.CountryLandList );
 welltype = 'Onshore';
+index = 'CDI';
 
 % Internal Variables
 cdi.UserData.variables.SurfaceElevation = 0;
@@ -248,7 +249,7 @@ cdi.UserData.country_popup = uicontrol ( 'Parent', cdi.UserData.lower_upper_pann
                                          'FontSize', 12, ...
                                          'Position', [ 0.3 1-1/13 0.2 1/13 ], ...
                                          'BackgroundColor', [ 1 1 1 ], ...
-                                         'Callback', @countryChangedCallBack );
+                                         'Callback', { @countryChangedCallBack, index } );
 cdi.UserData.factor1 = uicontrol( 'Parent', cdi.UserData.lower_upper_pannel, ...
                                   'Style', 'text', ...
                                   'String', [ 'F1: ' cdi.UserData.variables.factor1 ], ...
@@ -631,21 +632,7 @@ cdi.UserData.factor11 = uicontrol( 'Parent', cdi.UserData.lower_upper_pannel, ..
                                   'Visible', 'off');
 %% Lower panel
 % First printout of labels
-CDIFactors = [];
-CEDDFactors = [];
-switch ( welltype )
-    case 'Onshore'
-        Factors = [ 1 3 4 6 7 8 9 10 11 ];
-    case 'Offshore'
-        Factors = [ 1 2 3 4 5 6 7 8 9 10 11 ];
-end
-for i = 1 : size( Factors, 2 )
-    CDIFactors = strcat( CDIFactors, sprintf( 'F%d', Factors( i ) ), '+' );
-    CEDDFactors = strcat( CEDDFactors, sprintf( 'F%d', Factors( i ) ), '+' );
-end
-% Remore last '+'
-CDIFactors = strcat( 'CDI=(', CDIFactors( 1 : end - 1 ), ')' );
-CEDDFactors = strcat( 'CEDD=exp(', CEDDFactors( 1 : end - 1 ), ')' );
+[ CDIFactors,CEDDFactors ] = restartLabels( welltype );
 
 cdi.UserData.CDIText = uicontrol ( 'Parent', cdi.UserData.lower_pannel, ...
                                    'Style', 'text', ...
@@ -688,7 +675,9 @@ cdi.UserData.jmaximum_MW_value = findjobj( cdi.UserData.maximum_MW_value );
 set( cdi.UserData.jmaximum_MW_value, 'KeyPressedCallback', @validateNumericData );
 set( cdi.UserData.jmaximum_MW_value, 'FocusLostCallback', @MWUpdateLostFocus ); % Set FocusLost
 
-updateFactors( cdi, welltype );                                        
+CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
+
 %% Callback functions
     function welltypeselection( ~, callbackdata )
         if ( strcmp( callbackdata.NewValue.String, 'Offshore Well' ) )
@@ -702,10 +691,12 @@ updateFactors( cdi, welltype );
         end 
             % Update popups
             updatePopups( cdi, welltype );
-            % Update factors            
-            updateFactors( cdi, welltype );
+            % Update factors
+            [ CDIFactors,CEDDFactors ] = restartLabels( welltype );
+            CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+            CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
             % Update labels
-            updateLabels();
+            updateLabels( cdi );
     end
 
     function lengthselection( source, ~ )
@@ -778,60 +769,71 @@ updateFactors( cdi, welltype );
     end
     
     % Functions to trick Matlab callbacks
-    function countryChangedCallBack( ~, ~ )
-        countryChanged( cdi, [], welltype );
+    function countryChangedCallBack( ~, ~, index )
+        countryChanged( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function surfaceElevationUpdateLostFocus( ~, ~ )
-        surfaceElevationUpdate( cdi, [], welltype );
+        surfaceElevationUpdate( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function spudDepthUpdateLostFocus( ~, ~ )
-        spudDepthUpdate( cdi, [], welltype );
+        spudDepthUpdate( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function MTDUpdateLostFocus( ~, ~ )
-        MTDUpdate( cdi, [], welltype );
+        MTDUpdate( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function maximumAngleChangedCallback( ~, ~ )
-        maximumAngleChanged( cdi, [], welltype );
+        maximumAngleChanged( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function HSUpdateLostFocus( ~, ~ )
         switch ( welltype )
             case 'Offshore'
-                HSUpdate( cdi );
+                HSUpdate( cdi, index );
+                CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+                CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
         end
     end
     function bitSizeChangedCallback( ~, ~ )
-        bitSizeChanged( cdi, [], welltype );
+        bitSizeChanged( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function numberOfCasingsChangedCallback( ~, ~ )
-        numberOfCasingsChanged( cdi, [], welltype );
+        numberOfCasingsChanged( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function MWUpdateLostFocus( ~, ~ )
-        MWUpdate( cdi, [], welltype );
+        MWUpdate( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function HPChangedCallback( ~, ~ )
-        HPChanged( cdi, [], welltype );
+        HPChanged( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function reservoirAgeChangedCallback ( ~, ~ )
-        reservoirAgeChanged( cdi, [], welltype );
+        reservoirAgeChanged( cdi, [], welltype, index );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
     function batchOrCampaignChangedCallback( ~, ~ )
         batchOrCampaignChanged( cdi, [], welltype );
+        CDIFactors = updateFactors( cdi, welltype, CDIFactors, 'CDI' );
+        CEDDFactors = updateFactors( cdi, welltype, CEDDFactors, 'CEDD' );
     end
 
 %% Auxiliary functions
-% Function to update strings in case welltype changes
-    function updateLabels()
-       if ( cdi.UserData.variables.Offshore )
-           surface_elevation_string = 'Water Depth Elevation:';
-           spud_depth_string = 'Spud Depth @ Mud line:';
-       else
-           surface_elevation_string = 'Rotary Table Height:';
-           spud_depth_string = 'Spud Depth @ Cellar Bottom:';
-       end
-       set( cdi.UserData.surface_elevation, 'String', surface_elevation_string );
-       set( cdi.UserData.spud_depth, 'String', spud_depth_string );
-    end
-
     % Check whether a string only contains digits
     function flag = alldigits( str )
         flag = ( ~isnan( str2double( str ) ) || str == '.' );

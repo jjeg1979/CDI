@@ -19,23 +19,24 @@ function FactorLabel = updateOutputLabel( cdi, welltype, FactorLabel, numFactor,
     switch ( index )
         case 'CDI'
             index = 'CDI=';
-            control = cdi.UserData.CDIText;
+            control = cdi.UserData.CDIText;            
         case 'CEDD'
             index = 'CEDD=exp(';
             control = cdi.UserData.CEDDText;
     end
     
+    inicio = length( index ) + 1;
     allFactorsNum =  false( 1, numFactors ) ;
     
     %% Replace CDIFactors/CEDDFactors where appropiate
     % First cut CDIFactors/CEDDFactors string from the '+'
-    FactorLabel = FactorLabel( 6 : end - 1 );
+    FactorLabel = FactorLabel( inicio : end - 1 );
     FactorLabel = strsplit( FactorLabel, '+' );
     % Insert new value in the corresponding place.
-    FactorLabel( numFactor ) = num2str( valueFactor );
+    FactorLabel{ numFactor } = sprintf( '%.3f', valueFactor ) ;
     % Check whether all factors in FactorLabel can be converted into number
     for i = 1 : numFactors
-        if isnumeric( str2double( FactorLabel{ i } ) )
+        if ~isnan( str2double( FactorLabel{ i } ) )
             allFactorsNum( i ) = 1;
         end
     end
@@ -44,7 +45,7 @@ function FactorLabel = updateOutputLabel( cdi, welltype, FactorLabel, numFactor,
     if ( sum( allFactorsNum ) == numFactors )
         globalValue = sum( str2double( FactorLabel ) );
         FactorLabel = strjoin( FactorLabel, '+' );
-        FactorLabel = strcat( index, FactorLabel, ')=', num2str( globalValue ) );
+        FactorLabel = strcat( index, FactorLabel, ')=', globalValue );
     else
         FactorLabel = strjoin( FactorLabel, '+' );
         FactorLabel = strcat( index, FactorLabel, ')');

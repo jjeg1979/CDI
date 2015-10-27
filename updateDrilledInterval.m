@@ -1,4 +1,4 @@
-function updateDrilledInterval( cdi, welltype )
+function updateDrilledInterval( cdi, welltype, index )
         
     if ( ~isempty( cdi.UserData.jsurface_elevation_value.getText ) && ...
             ~isempty( cdi.UserData.jspud_depth_value.getText ) && ...
@@ -11,7 +11,7 @@ function updateDrilledInterval( cdi, welltype )
             set( cdi.UserData.DI_value, 'String', ' ' );
         else
             set( cdi.UserData.DI_value, 'String', num2str( cdi.UserData.variables.DrilledInterval ) );
-            cdi.UserData.variables.factor3 = DIFactor( cdi.UserData.variables.DrilledInterval, welltype, 'CDI' );
+            cdi.UserData.variables.factor3 = DIFactor( cdi.UserData.variables.DrilledInterval, welltype, index );
             updateFactorOnScreen( 3, cdi );
         end
     end
